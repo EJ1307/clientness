@@ -883,10 +883,10 @@ ol {
   font-family: "Inter Display", "Inter", sans-serif;
   font-feature-settings: "cv03", "cv04", "cv09", "cv11", "salt";
   -webkit-font-feature-settings: "cv03", "cv04", "cv09", "cv11", "salt";
-  font-size: clamp(48px, 6.2vw, 88px);
+  font-size: clamp(44px, 5.8vw, 78px);
   font-weight: 600;
   line-height: 0.95;
-  letter-spacing: -4.5px;
+  letter-spacing: -3.5px;
   margin-bottom: 28px;
   opacity: 0;
   animation: premium-popup 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -924,14 +924,13 @@ ol {
 /* VIDEO EMBED */
 .hero-video-container {
   width: 100%;
-  max-width: 680px;
+  max-width: 1080px;
   margin: 0 auto 40px;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   overflow: hidden;
   box-shadow: 0 8px 48px rgba(0, 0, 0, 0.6);
   background: #000;
-  aspect-ratio: 720 / 406;
 }
 
 .hero-video-container video,
@@ -960,25 +959,25 @@ ol {
 
 .stat-number {
   font-family: "Rethink Sans", "Inter Display", sans-serif;
-  font-size: 54px;
+  font-size: 46px;
   font-weight: 700;
-  line-height: 64.8px;
-  letter-spacing: -0.54px;
+  line-height: 55px;
+  letter-spacing: -0.46px;
   margin-bottom: 2px;
 }
 
 .stat-label {
   font-family: "Rethink Sans", "Inter Display", sans-serif;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
-  line-height: 21px;
+  line-height: 20px;
   color: #fff;
   letter-spacing: normal;
 }
 
 /* PRICING CARD */
 .pricing-section {
-  padding: 0 20px 50px;
+  padding: 0 20px 90px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -991,7 +990,7 @@ ol {
   border-radius: 40px;
   padding: 40px 50px;
   width: 100%;
-  max-width: 920px;
+  max-width: 600px;
 }
 
 .pricing-header {
@@ -1649,9 +1648,10 @@ ol {
 
 /* FAQ ACCORDION */
 .faq-answer {
-  max-height: 0;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s ease;
   font-size: 16px;
   line-height: 1.6;
   color: rgb(255, 255, 255);
@@ -1663,20 +1663,21 @@ ol {
   font-size: 16px;
   line-height: 1.6;
   color: rgb(255, 255, 255);
+  min-height: 0;
 }
 
 .faq-item.active .faq-answer {
-  max-height: 300px;
+  grid-template-rows: 1fr;
   padding: 0 0 20px 0;
 }
 
 .faq-item.active .faq-icon {
   transform: rotate(45deg);
-  transition: transform 0.3s ease;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .faq-icon {
-  transition: transform 0.3s ease;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* FOOTER */
@@ -1685,7 +1686,7 @@ ol {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 30px 20px 70px;
+  padding: 30px 20px 110px;
   background-color: var(--bg-dark);
 }
 
@@ -2102,8 +2103,8 @@ ol {
   }
 
   .hero-title {
-    font-size: clamp(34px, 7vw, 62px) !important;
-    letter-spacing: -2px !important;
+    font-size: clamp(28px, 6vw, 50px) !important;
+    letter-spacing: -1.5px !important;
     margin-bottom: 18px !important;
   }
 
@@ -2129,12 +2130,12 @@ ol {
   }
 
   .stat-number {
-    font-size: 27px !important;
-    line-height: 32px !important;
+    font-size: 25px !important;
+    line-height: 30px !important;
   }
   .stat-label {
-    font-size: 13px !important;
-    line-height: 16px !important;
+    font-size: 12px !important;
+    line-height: 15px !important;
     color: rgba(255, 255, 255, 0.6) !important;
   }
 
@@ -2293,9 +2294,15 @@ ol {
   }
 
   .site-header .btn-white {
-    font-size: 13px !important;
-    height: 36px !important;
+    font-size: 11px !important;
+    height: 32px !important;
     padding: 0 10px !important;
+    gap: 5px !important;
+  }
+
+  .site-header .btn-white svg {
+    width: 13px !important;
+    height: 13px !important;
   }
 
   .site-header .logo img {
@@ -2308,8 +2315,8 @@ ol {
   }
 
   .hero-title {
-    font-size: 32px !important;
-    letter-spacing: -1px !important;
+    font-size: 26px !important;
+    letter-spacing: -0.75px !important;
   }
 
   .hero-subtitle {
