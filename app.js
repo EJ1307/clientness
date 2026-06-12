@@ -204,35 +204,82 @@ if (caseSliderContainer) {
   caseSliderContainer.addEventListener('mouseenter', stopCaseAutoplay);
   caseSliderContainer.addEventListener('mouseleave', startCaseAutoplay);
 
-  // Pause & Swipe on touch events
+  // Pause & Drag/Swipe on touch events
   let caseTouchStartX = 0;
-  let caseTouchEndX = 0;
+  let caseTouchStartY = 0;
+  let isDragging = false;
+  let isScrollLock = false;
 
   caseSliderContainer.addEventListener('touchstart', (e) => {
-    caseTouchStartX = e.changedTouches[0].screenX;
+    caseTouchStartX = e.touches[0].clientX;
+    caseTouchStartY = e.touches[0].clientY;
+    isDragging = true;
+    isScrollLock = false;
     stopCaseAutoplay();
+    if (track) {
+      track.style.transition = 'none';
+    }
   }, { passive: true });
+
+  caseSliderContainer.addEventListener('touchmove', (e) => {
+    if (!isDragging || !track) return;
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+    const diffX = currentX - caseTouchStartX;
+    const diffY = currentY - caseTouchStartY;
+
+    if (!isScrollLock) {
+      if (Math.abs(diffX) > Math.abs(diffY)) {
+        isScrollLock = true;
+      } else {
+        isDragging = false;
+        return;
+      }
+    }
+
+    if (isScrollLock) {
+      if (e.cancelable) e.preventDefault();
+
+      const width = caseSliderContainer.clientWidth;
+      let targetOffset = -caseIndex * width + diffX;
+
+      // Rubber-band effect at edges
+      if (caseIndex === 0 && diffX > 0) {
+        targetOffset = diffX * 0.3;
+      } else if (caseIndex === caseStudies.length - 1 && diffX < 0) {
+        targetOffset = -caseIndex * width + diffX * 0.3;
+      }
+
+      track.style.transform = `translateX(${targetOffset}px)`;
+    }
+  }, { passive: false });
 
   caseSliderContainer.addEventListener('touchend', (e) => {
-    caseTouchEndX = e.changedTouches[0].screenX;
-    handleCaseSwipe();
+    if (!isDragging) {
+      startCaseAutoplay();
+      return;
+    }
+    isDragging = false;
+    if (track) {
+      track.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+    }
+
+    const width = caseSliderContainer.clientWidth;
+    const finalX = e.changedTouches[0].clientX;
+    const diffX = finalX - caseTouchStartX;
+    const swipeThreshold = width * 0.2; // 20% of container width
+
+    if (Math.abs(diffX) > swipeThreshold) {
+      if (diffX > 0 && caseIndex > 0) {
+        caseIndex--;
+      } else if (diffX < 0 && caseIndex < caseStudies.length - 1) {
+        caseIndex++;
+      }
+    }
+
+    renderCaseStudy(caseIndex);
     startCaseAutoplay();
   }, { passive: true });
-
-  function handleCaseSwipe() {
-    const swipeThreshold = 50;
-    const diff = caseTouchEndX - caseTouchStartX;
-    if (Math.abs(diff) > swipeThreshold) {
-      if (diff > 0) {
-        // Swipe Right -> Previous
-        caseIndex = (caseIndex === 0) ? caseStudies.length - 1 : caseIndex - 1;
-      } else {
-        // Swipe Left -> Next
-        caseIndex = (caseIndex === caseStudies.length - 1) ? 0 : caseIndex + 1;
-      }
-      renderCaseStudy(caseIndex);
-    }
-  }
 }
 
 // Simple fade animation for transitions
