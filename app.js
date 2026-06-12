@@ -94,6 +94,34 @@ if (sliderContainer) {
     currentIndex = (currentIndex === testimonials.length - 1) ? 0 : currentIndex + 1;
     renderTestimonial(currentIndex);
   });
+
+  // Touch Swipe Support
+  let testimonialTouchStartX = 0;
+  let testimonialTouchEndX = 0;
+
+  sliderContainer.addEventListener('touchstart', (e) => {
+    testimonialTouchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  sliderContainer.addEventListener('touchend', (e) => {
+    testimonialTouchEndX = e.changedTouches[0].screenX;
+    handleTestimonialSwipe();
+  }, { passive: true });
+
+  function handleTestimonialSwipe() {
+    const swipeThreshold = 50;
+    const diff = testimonialTouchEndX - testimonialTouchStartX;
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) {
+        // Swipe Right -> Previous
+        currentIndex = (currentIndex === 0) ? testimonials.length - 1 : currentIndex - 1;
+      } else {
+        // Swipe Left -> Next
+        currentIndex = (currentIndex === testimonials.length - 1) ? 0 : currentIndex + 1;
+      }
+      renderTestimonial(currentIndex);
+    }
+  }
 }
 
 // Case Study Slider Logic
@@ -176,9 +204,35 @@ if (caseSliderContainer) {
   caseSliderContainer.addEventListener('mouseenter', stopCaseAutoplay);
   caseSliderContainer.addEventListener('mouseleave', startCaseAutoplay);
 
-  // Pause on touch start (mobile hold)
-  caseSliderContainer.addEventListener('touchstart', stopCaseAutoplay, { passive: true });
-  caseSliderContainer.addEventListener('touchend', startCaseAutoplay, { passive: true });
+  // Pause & Swipe on touch events
+  let caseTouchStartX = 0;
+  let caseTouchEndX = 0;
+
+  caseSliderContainer.addEventListener('touchstart', (e) => {
+    caseTouchStartX = e.changedTouches[0].screenX;
+    stopCaseAutoplay();
+  }, { passive: true });
+
+  caseSliderContainer.addEventListener('touchend', (e) => {
+    caseTouchEndX = e.changedTouches[0].screenX;
+    handleCaseSwipe();
+    startCaseAutoplay();
+  }, { passive: true });
+
+  function handleCaseSwipe() {
+    const swipeThreshold = 50;
+    const diff = caseTouchEndX - caseTouchStartX;
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) {
+        // Swipe Right -> Previous
+        caseIndex = (caseIndex === 0) ? caseStudies.length - 1 : caseIndex - 1;
+      } else {
+        // Swipe Left -> Next
+        caseIndex = (caseIndex === caseStudies.length - 1) ? 0 : caseIndex + 1;
+      }
+      renderCaseStudy(caseIndex);
+    }
+  }
 }
 
 // Simple fade animation for transitions
