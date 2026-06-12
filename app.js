@@ -111,6 +111,7 @@ const caseDotsContainer = document.getElementById('case-dots');
 const casePrevBtn = document.querySelector('.case-prev');
 const caseNextBtn = document.querySelector('.case-next');
 let caseIndex = 0;
+let caseAutoplayTimer = null;
 
 if (caseSliderContainer) {
   const track = caseSliderContainer.querySelector('.case-study-track');
@@ -131,22 +132,53 @@ if (caseSliderContainer) {
       dot.addEventListener('click', (e) => {
         caseIndex = parseInt(e.currentTarget.getAttribute('data-index'), 10);
         renderCaseStudy(caseIndex);
+        resetCaseAutoplay();
       });
     });
   }
 
+  function startCaseAutoplay() {
+    stopCaseAutoplay();
+    caseAutoplayTimer = setInterval(() => {
+      caseIndex = (caseIndex === caseStudies.length - 1) ? 0 : caseIndex + 1;
+      renderCaseStudy(caseIndex);
+    }, 2000);
+  }
+
+  function stopCaseAutoplay() {
+    if (caseAutoplayTimer) {
+      clearInterval(caseAutoplayTimer);
+      caseAutoplayTimer = null;
+    }
+  }
+
+  function resetCaseAutoplay() {
+    startCaseAutoplay();
+  }
+
   // Initial render (just to set up dots)
   renderCaseStudy(caseIndex);
+  startCaseAutoplay();
 
   casePrevBtn.addEventListener('click', () => {
     caseIndex = (caseIndex === 0) ? caseStudies.length - 1 : caseIndex - 1;
     renderCaseStudy(caseIndex);
+    resetCaseAutoplay();
   });
 
   caseNextBtn.addEventListener('click', () => {
     caseIndex = (caseIndex === caseStudies.length - 1) ? 0 : caseIndex + 1;
     renderCaseStudy(caseIndex);
+    resetCaseAutoplay();
   });
+
+  // Pause on hover
+  caseSliderContainer.addEventListener('mouseenter', stopCaseAutoplay);
+  caseSliderContainer.addEventListener('mouseleave', startCaseAutoplay);
+
+  // Pause on touch start (mobile hold)
+  caseSliderContainer.addEventListener('touchstart', stopCaseAutoplay, { passive: true });
+  caseSliderContainer.addEventListener('touchend', startCaseAutoplay, { passive: true });
 }
 
 // Simple fade animation for transitions
