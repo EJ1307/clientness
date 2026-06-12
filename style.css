@@ -348,11 +348,13 @@ ul, ol {
   aspect-ratio: 720 / 406;
 }
 
-.hero-video-container video {
+.hero-video-container video,
+.hero-video-container iframe {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: contain;
+  border: none;
 }
 
 /* STATS */

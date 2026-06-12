@@ -83,8 +83,8 @@ function renderTestimonial(index) {
 }
 
 if (sliderContainer) {
-  renderTestimonial(currentIndex);
-
+  // We don't overwrite on load since it's already hardcoded in HTML for instant render.
+  
   prevBtn.addEventListener('click', () => {
     currentIndex = (currentIndex === 0) ? testimonials.length - 1 : currentIndex - 1;
     renderTestimonial(currentIndex);
@@ -113,22 +113,6 @@ const caseNextBtn = document.querySelector('.case-next');
 let caseIndex = 0;
 
 if (caseSliderContainer) {
-  // Set up container styling for horizontal track
-  caseSliderContainer.style.position = 'relative';
-  caseSliderContainer.style.width = '100%';
-  caseSliderContainer.style.overflow = 'hidden';
-  
-  // Inject the slide track containing all images side-by-side
-  caseSliderContainer.innerHTML = `
-    <div class="case-study-track" style="display: flex; width: 100%; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); will-change: transform;">
-      ${caseStudies.map(src => `
-        <div class="case-study-slide" style="flex: 0 0 100%; width: 100%;">
-          <img src="${src}" alt="Case Study" style="width: 100%; height: auto; display: block; object-fit: contain;">
-        </div>
-      `).join('')}
-    </div>
-  `;
-
   const track = caseSliderContainer.querySelector('.case-study-track');
 
   function renderCaseStudy(index) {
@@ -151,7 +135,7 @@ if (caseSliderContainer) {
     });
   }
 
-  // Initial render
+  // Initial render (just to set up dots)
   renderCaseStudy(caseIndex);
 
   casePrevBtn.addEventListener('click', () => {

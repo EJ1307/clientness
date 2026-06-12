@@ -54,11 +54,13 @@
       </div>
       
       <div class="hero-video-container">
-        <video controls autoplay loop playsinline preload="auto">
-          <source src="Clientness - 720WebShareName.mp4" type="video/mp4">
-          <source src="Clientness - 720WebShareName.mov" type="video/quicktime">
-          Your browser does not support the video tag.
-        </video>
+        <iframe src="https://www.youtube.com/embed/_LlTtNAA1sk?autoplay=1&mute=1&loop=1&playlist=_LlTtNAA1sk&controls=1&rel=0&modestbranding=1" 
+                title="Clientness Demo Video" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+        </iframe>
       </div>
     </section>
 
@@ -113,8 +115,27 @@
         </div>
         
         <div class="case-study-outer-container">
-          <div class="case-study-inner-container" id="case-study-slider">
-            <!-- Images injected via JS -->
+          <div class="case-study-inner-container" id="case-study-slider" style="position: relative; width: 100%; overflow: hidden;">
+            <div class="case-study-track" style="display: flex; width: 100%; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); will-change: transform;">
+              <div class="case-study-slide" style="flex: 0 0 100%; width: 100%;">
+                <img src="./Case Studies 2026 - Clientness/Case Studies 2026 - Clientness-3.png" alt="Case Study" style="width: 100%; height: auto; display: block; object-fit: contain;">
+              </div>
+              <div class="case-study-slide" style="flex: 0 0 100%; width: 100%;">
+                <img src="./Case Studies 2026 - Clientness/Case Studies 2026 - Clientness-4.png" alt="Case Study" style="width: 100%; height: auto; display: block; object-fit: contain;">
+              </div>
+              <div class="case-study-slide" style="flex: 0 0 100%; width: 100%;">
+                <img src="./Case Studies 2026 - Clientness/Case Studies 2026 - Clientness-5.png" alt="Case Study" style="width: 100%; height: auto; display: block; object-fit: contain;">
+              </div>
+              <div class="case-study-slide" style="flex: 0 0 100%; width: 100%;">
+                <img src="./Case Studies 2026 - Clientness/Case Studies 2026 - Clientness-6.png" alt="Case Study" style="width: 100%; height: auto; display: block; object-fit: contain;">
+              </div>
+              <div class="case-study-slide" style="flex: 0 0 100%; width: 100%;">
+                <img src="./Case Studies 2026 - Clientness/Case Studies 2026 - Clientness-7.png" alt="Case Study" style="width: 100%; height: auto; display: block; object-fit: contain;">
+              </div>
+              <div class="case-study-slide" style="flex: 0 0 100%; width: 100%;">
+                <img src="./Case Studies 2026 - Clientness/Case Studies 2026 - Clientness-8.png" alt="Case Study" style="width: 100%; height: auto; display: block; object-fit: contain;">
+              </div>
+            </div>
           </div>
         </div>
 
@@ -229,7 +250,13 @@
         </div>
         
         <div class="text-testimonials-slider-container" id="testimonial-slider">
-          <!-- Slides injected via JS -->
+          <div class="text-testimonials-card">
+            <p class="text-testimonials-quote">“Quality leads started coming in as soon as the ads went live. The setup and targeting were clearly done right.”</p>
+            <div class="text-testimonials-author-container">
+              <p class="text-testimonials-author-name">Imran Shaikh</p>
+              <p class="text-testimonials-author-role">Founder, Al Noor Services</p>
+            </div>
+          </div>
         </div>
 
         <div class="nav-arrow nav-next">
