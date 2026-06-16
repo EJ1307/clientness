@@ -2294,15 +2294,15 @@ ol {
   }
 
   .site-header .btn-white {
-    font-size: 14px !important;
-    height: 38px !important;
-    padding: 0 14px !important;
-    gap: 6px !important;
+    font-size: 13px !important;
+    height: 32px !important;
+    padding: 0 10px !important;
+    gap: 5px !important;
   }
 
   .site-header .btn-white svg {
-    width: 15px !important;
-    height: 15px !important;
+    width: 13px !important;
+    height: 13px !important;
   }
 
   .site-header .logo img {
